@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script src="./abi7-vbox.js"></script>
+	<script src="./extends/abi7-vbox-utils.js"></script>
+</head>
+
+<body>
+	<section id="abi7-application">
+		<input id="input_file" type="file" name="file_vbox" accept="video/mp4,video/x-m4v,video/*" />
+	</section>
+
+	<script>
+		function loadMedia(e) {
+			if (e.target.files || null !== null && e.target.files.length) {
+				let vbox = new abi7Vbox(e.target.files[0], {
+					ignoreErrors: false,
+					events: {
+						onParsing: (obj, perc) => {
+							console.log('parsing');
+						}
+					}
+				});
+				vbox.parse((obj, info) => {
+					console.log(info);
+					if (obj.errors.length) {
+						console.log('errors', obj.errors);
+					}
+					/*
+					new abi7VboxUtils(obj).clone({}, clone => {
+						clone.download();
+					});
+					*/
+
+					let utils = new abi7VboxUtils(obj);
+					utils.getSamples(samples => {
+						console.log('samples', samples);
+					});
+					utils.cutFrames(2, 400, clone => {
+						clone.download();
+					});
+				});
+			}
+		}
+
+		document.getElementById('input_file').addEventListener('change', loadMedia);
+	</script>
+
+</body>
+
+</html>
