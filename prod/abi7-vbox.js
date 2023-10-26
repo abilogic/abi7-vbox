@@ -2,8 +2,25 @@
  * @ Author: Alexander Momot
  * @ Create Time: 2023-03-27 08:06:24
  * @ Modified by: Alexander Momot
- * @ Modified time: 2023-10-24 10:08:30
+ * @ Modified time: 2023-10-26 13:55:41
  * @ Description:
+ * 
+ * abi7Vbox is a class that enables various operations on MP4 and MOV
+ * video files and provides detailed information. It can retrieve the
+ * following information:
+ * 
+ * - Duration of video and audio tracks in seconds.
+ * - Duration of video and audio tracks in samples.
+ * - Frame rate.
+ * - Audio bit depth and sample rate.
+ * - Number of blocks.
+ * - List of atoms.
+ * - List of atoms with detailed information in a tree structure.
+ * - List of data errors.
+ * 
+ * Additionally, the class allows the following manipulations:
+ * - Analyzing errors with an attempt to correct them.
+ * - Trimming video files with frame-level precision.
  */
 
 'use strict';
@@ -1749,25 +1766,6 @@ class abi7VboxParser {
 
 }
 
-
-/**
- * abi7Vbox is a class that enables various operations on MP4 and MOV
- * video files and provides detailed information. It can retrieve the
- * following information:
- * 
- * - Duration of video and audio tracks in seconds.
- * - Duration of video and audio tracks in samples.
- * - Frame rate.
- * - Audio bit depth and sample rate.
- * - Number of blocks.
- * - List of atoms.
- * - List of atoms with detailed information in a tree structure.
- * - List of data errors.
- * 
- * Additionally, the class allows the following manipulations:
- * - Analyzing errors with an attempt to correct them.
- * - Trimming video files with frame-level precision.
- */
 
 class abi7Vbox {
 	constructor(file, options) {
