@@ -329,9 +329,8 @@ Array.prototype.equals = function (arr) {
 }
 
 Array.prototype.median = function () {
-	let
-		mid = Math.floor(this.length / 2),
-		nums = [...this].sort((a, b) => a - b);
+	let	mid = Math.floor(this.length / 2);
+	let	nums = [...this].sort((a, b) => a - b);
 	return this.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
 }
 
@@ -481,16 +480,12 @@ Uint8Array.prototype.getUint32BE = function (pos) {
 }
 
 Uint8Array.prototype.getDate = function (pos) {
-	let
-		sec = Math.abs((new Date(Date.UTC(1970, 1, 1)).getTime() - new Date(1904, 1, 1).getTime()) / 1000);
+	let	sec = Math.abs((new Date(Date.UTC(1970, 1, 1)).getTime() - new Date(1904, 1, 1).getTime()) / 1000);
 	return new Date((this.getUint32(pos) - sec) * 1000);
 }
 
 Uint8Array.prototype.getFloat32Fix = function (pos) {
-	let
-		a1 = abi_bytes2int(Array.from(this.subarray(pos, pos + 2))),
-		a2 = abi_bytes2int(Array.from(this.subarray(pos + 2, pos + 4)));
-	return a1;
+	return abi_bytes2int(Array.from(this.subarray(pos, pos + 2)));
 }
 
 Uint8Array.prototype.getString = function (pos, len) {
@@ -529,8 +524,7 @@ Uint8Array.prototype.getBytesStr = function (pos) {
 
 Uint8Array.prototype.indexOfPattern = function (pat, pos) {
 	pos = pos || 0;
-	let
-		found = -1;
+	let found = -1;
 
 	for (let i = pos; i <= this.length - pat.length; i++) {
 		found = i;
