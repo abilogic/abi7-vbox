@@ -1,8 +1,8 @@
 /**
  * @ Author: Alexander Momot
  * @ Create Time: 2023-03-27 08:06:24
- * @ Modified by: Alexander Momot
- * @ Modified time: 2023-10-26 13:55:41
+ * @ Modified by: Your name
+ * @ Modified time: 2024-10-01 09:35:34
  * @ Description:
  * 
  * abi7Vbox is a class that enables various operations on MP4 and MOV
@@ -571,7 +571,7 @@ class abi7VboxFileReader {
 	}
 
 	init() {
-		let self = this;
+		const self = this;
 		let offset = 0;
 		let endPos = self.file.size;
 		let percOne = (endPos - offset) / 100;
@@ -645,7 +645,7 @@ class abi7VboxFileReader {
 
 class abi7VboxData {
 	constructor(options) {
-		let self = this;
+		const self = this;
 		self.defaults = {
 		}
 		self.config = Object.assign({}, self.defaults, options);
@@ -653,7 +653,7 @@ class abi7VboxData {
 	}
 
 	init() {
-		let self = this;
+		const self = this;
 	}
 }
 
@@ -661,7 +661,7 @@ class abi7VboxData {
 
 class abi7VboxParser {
 	constructor(vbox, successCallback) {
-		let self = this;
+		const self = this;
 		self.vbox = vbox;
 		self.config = vbox.config;
 		self.file = vbox.file;
@@ -695,7 +695,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	init() {
-		let self = this;
+		const self = this;
 
 		if (typeof self.vbox.events.onParsingStart === 'function') {
 			self.vbox.events.onParsingStart(self.vbox);
@@ -727,7 +727,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	parseChunk(offset, data) {
-		let self = this;
+		const self = this;
 		let atomMdat = self.findAtoms('mdat', 0);
 
 		data = new Uint8Array(data);
@@ -783,7 +783,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	readFile(pos, len, callback) {
-		let self = this;
+		const self = this;
 		let r = new FileReader();
 		let b = self.file.slice(pos, Math.min(pos + len, self.file.size));
 
@@ -798,7 +798,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	findAtoms(name, id) {
-		let self = this;
+		const self = this;
 		let atm = 0;
 		let res = [];
 
@@ -825,7 +825,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	findTrAtoms(name, id) {
-		let self = this;
+		const self = this;
 		let atm = 0;
 		let arr = 0;
 		let res = [];
@@ -853,7 +853,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	emptyAtomNames() {
-		let self = this;
+		const self = this;
 		let res = ABI7_VBOX_ATOMS_FREE.map(a => a);
 
 		ABI7_VBOX_ATOM_NAMES.forEach(name => {
@@ -868,7 +868,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	parseHeaderTracks(callback) {
-		let self = this;
+		const self = this;
 		let pos = 0;
 		let min = 0;
 		let val = 0;
@@ -1102,7 +1102,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	parseMediaData(callback) {
-		let self = this;
+		const self = this;
 		let val = 0;
 		let ver = 0;
 		let num = 0;
@@ -1357,7 +1357,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	getFrameInfo(index) {
-		let self = this;
+		const self = this;
 		let stsc = self.findTrAtoms('stsc', 0);
 		let stsz = self.findTrAtoms('stsz', 0);
 		let stco = self.findTrAtoms(['stco', 'co64'], 0);
@@ -1401,7 +1401,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	parseAtoms(callback) {
-		let self = this;
+		const self = this;
 		let pos = 0;
 		let min = 0;
 		let max = 0;
@@ -1444,7 +1444,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	calcHeaderSpot(callback) {
-		let self = this;
+		const self = this;
 		let pos = 0;
 		let atm = 0;
 		let arr = ABI7_VBOX_TPL_HEADER_NAMES;
@@ -1501,7 +1501,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	checkAtomsHealth(callback) {
-		let self = this;
+		const self = this;
 
 		//--- check atom links
 
@@ -1742,7 +1742,7 @@ class abi7VboxParser {
 	//--------------------------------------------------------------------------
 
 	parseData(callback) {
-		let self = this;
+		const self = this;
 		self.parseAtoms(() => {
 			self.checkAtomsHealth(() => {
 				self.parseHeaderTracks(() => {
@@ -1763,7 +1763,7 @@ class abi7VboxParser {
 
 class abi7Vbox {
 	constructor(file, options) {
-		let self = this;
+		const self = this;
 		if (!('File' in window && file instanceof File)) {
 			throw new Error('Invalid file parameter!');
 		}
@@ -1788,7 +1788,7 @@ class abi7Vbox {
 	}
 
 	error(obj, value) {
-		let self = this;
+		const self = this;
 		let text = obj.constructor.name + ': ' + value;
 		if (self.config.ignoreErrors) {
 			self.errors.push(text);
@@ -1798,12 +1798,12 @@ class abi7Vbox {
 	}
 
 	parse(fdone) {
-		let self = this;
+		const self = this;
 		self.parser = new abi7VboxParser(self, fdone);
 	}
 
 	setStatus(value) {
-		let self = this;
+		const self = this;
 		if (self.status !== value) {
 			self.status = value;
 		}

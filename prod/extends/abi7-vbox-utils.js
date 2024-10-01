@@ -14,7 +14,7 @@ const ABI7_VBOX_REQUEST_BYTES = 1024 * 1024 * 1024 * 8;
 
 class abi7VboxClone {
 	constructor(vbox, options, callback) {
-		let self = this;
+		const self = this;
 		self.vbox = vbox;
 		self.file = vbox.file;
 		self.parser = vbox.parser;
@@ -28,7 +28,7 @@ class abi7VboxClone {
 	//--------------------------------------------------------------------------
 
 	init() {
-		let self = this;
+		const self = this;
 
 		self.origin = {
 			samples: {
@@ -162,7 +162,7 @@ class abi7VboxClone {
 	//--------------------------------------------------------------------------
 
 	buildHeader(callback) {
-		let self = this;
+		const self = this;
 		let ver = 0;
 		let atoms = 0;
 		let NODES = ABI7_VBOX_TPL_FILE;
@@ -787,7 +787,7 @@ class abi7VboxClone {
 	//--------------------------------------------------------------------------
 
 	parseMDAT(callback) {
-		let self = this;
+		const self = this;
 		let mdat = self.parser.findAtoms('mdat');
 
 		if (mdat.length) {
@@ -825,7 +825,7 @@ class abi7VboxClone {
 	//--------------------------------------------------------------------------
 
 	buildFile(callback) {
-		let self = this;
+		const self = this;
 		let tmpName = 'video.tmp';
 
 		let func_error = (e) => {
@@ -907,7 +907,7 @@ class abi7VboxClone {
 	//--------------------------------------------------------------------------
 
 	download() {
-		let self = this;
+		const self = this;
 		let fname = 'video.tmp';
 		let fArr = self.file.name.split('.');
 		let newName = fArr[0] + '-repaired.' + fArr[1];
@@ -954,7 +954,7 @@ class abi7VboxClone {
 
 class abi7VboxCut {
 	constructor(vbox) {
-		let self = this;
+		const self = this;
 		self.vbox = vbox;
 		self.file = vbox.file;
 		self.parser = vbox.parser;
@@ -963,7 +963,7 @@ class abi7VboxCut {
 	//--------------------------------------------------------------------------
 
 	frames(start, end, callback) {
-		let self = this;
+		const self = this;
 		start = Math.max(1, start || 1);
 		end = Math.min(self.parser.DATA.INFO.TRACK_NUM_FRAMES, end || self.parser.DATA.INFO.TRACK_NUM_FRAMES);
 		if (end >= start) {
@@ -986,7 +986,7 @@ class abi7VboxCut {
 	//--------------------------------------------------------------------------
 
 	time(start, end, callback) {
-		let self = this;
+		const self = this;
 	}
 }
 
@@ -1002,7 +1002,7 @@ class abi7VboxSample {
 
 class abi7VboxSamples {
 	constructor(vbox, callback) {
-		let self = this;
+		const self = this;
 		self.vbox = vbox;
 		self.file = vbox.file;
 		self.parser = vbox.parser;
@@ -1013,7 +1013,7 @@ class abi7VboxSamples {
 	//--------------------------------------------------------------------------
 
 	init(callback) {
-		let self = this;
+		const self = this;
 		let chunks = self.parser.DATA.CHUNKS;
 		let func = (index) => {
 			if (index < chunks.length) {
@@ -1050,7 +1050,7 @@ class abi7VboxSamples {
 
 class abi7VboxTree {
 	constructor(vbox, callback) {
-		let self = this;
+		const self = this;
 		self.vbox = vbox;
 		self.file = vbox.file;
 		self.parser = vbox.parser;
@@ -1062,7 +1062,7 @@ class abi7VboxTree {
 	//--------------------------------------------------------------------------
 
 	setAtomLinks(id, to, level, parent) {
-		let self = this;
+		const self = this;
 		let free = 0;
 		let stc = 0;
 		let atm = 0;
@@ -1097,7 +1097,7 @@ class abi7VboxTree {
 	//--------------------------------------------------------------------------
 
 	init (callback) {
-		let self = this;
+		const self = this;
 
 		self.setAtomLinks(0, 10000, 0, self.tree);
 
@@ -1135,7 +1135,7 @@ class abi7VboxTree {
 
 class abi7VboxUtils {
 	constructor(vbox, options) {
-		let self = this;
+		const self = this;
 		self.vbox = vbox;
 		self.file = vbox.file;
 		self.parser = vbox.parser;
@@ -1148,34 +1148,34 @@ class abi7VboxUtils {
 	//--------------------------------------------------------------------------
 
 	init() {
-		let self = this;
+		const self = this;
 	}
 
 	//--------------------------------------------------------------------------
 
 	getAtomsTree(callback) {
-		let self = this;
+		const self = this;
 		new abi7VboxTree(self, callback);
 	}
 
 	//--------------------------------------------------------------------------
 
 	getSamples(callback) {
-		let self = this;
+		const self = this;
 		new abi7VboxSamples(self, callback);
 	}
 
 	//--------------------------------------------------------------------------
 	
 	clone(options, callback) {
-		let self = this;
+		const self = this;
 		new abi7VboxClone(self, options, callback);
 	}
 
 	//--------------------------------------------------------------------------
 
 	cutFrames(start, end, callback) {
-		let self = this;
+		const self = this;
 		let cut = new abi7VboxCut(self.vbox);
 		cut.frames(start, end, callback);
 	}
@@ -1183,7 +1183,7 @@ class abi7VboxUtils {
 	//--------------------------------------------------------------------------
 
 	cutTime(start, end, callback) {
-		let self = this;
+		const self = this;
 		let cut = new abi7VboxCut(self.vbox);
 		cut.time(start, end, callback);
 	}
